@@ -1,9 +1,9 @@
 class User < ApplicationRecord
-  before_create -> {self.token = generate_token}
   has_many :posts
 
   validates :name, presence: true
-  
+  before_create -> {self.token = generate_token}
+
   private
 
   def generate_token
