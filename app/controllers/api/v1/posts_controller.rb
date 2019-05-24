@@ -3,10 +3,15 @@ module Api
         class PostsController < ApplicationController
           include ActionController::HttpAuthentication::Token::ControllerMethods
           before_action :authenticate, only: [:create, :destroy]
-          
+
           def index
             @posts = Post.order('created_at DESC')
             render json: @posts
+          end
+
+          def show
+            @post = Post.find(params[:id])
+            render json: @post.as_json(  only: [ :id, :title, :body])
           end
 
           def create
